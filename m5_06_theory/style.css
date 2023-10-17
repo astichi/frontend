@@ -1,0 +1,26 @@
+
+#app {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.area {
+  background-color: mistyrose;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.line {
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+}
+
+.seat {
+  width: 20px;
+  height: 20px;
+  background-color: lightsalmon;
+}
