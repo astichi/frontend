@@ -2,18 +2,22 @@
 
 const input = document.createElement('input');
 const p = document.createElement('p');
-const button = document.createElement('button');
 
-button.textContent = 'сохранить';
-document.body.append(input, p, button);
+document.body.append(input, p);
 
-button.addEventListener('click', () => {
+input.addEventListener('input', () => {
   setTimeout(() => {
     p.textContent = input.value;
   }, 300);
 });
 
 // input.addEventListener('change', () => {
+//   setTimeout(() => {
+//     p.textContent = input.value;
+//   }, 300);
+// });
+
+// input.addEventListener('blur', () => {
 //   setTimeout(() => {
 //     p.textContent = input.value;
 //   }, 300);
