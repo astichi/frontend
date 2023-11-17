@@ -5,11 +5,11 @@ const p = document.createElement('p');
 
 document.body.append(input, p);
 
-// input.addEventListener('input', () => {
-//   setTimeout(() => {
-//     p.textContent = input.value;
-//   }, 300);
-// });
+input.addEventListener('input', () => {
+  setTimeout(() => {
+    p.textContent = input.value;
+  }, 300);
+});
 
 // input.addEventListener('change', () => {
 //   setTimeout(() => {
