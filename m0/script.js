@@ -68,21 +68,21 @@
 
 // *************************************************
 
-const trigger = document.querySelector('button')
-const hint = document.querySelector('div')
+// const trigger = document.querySelector('button')
+// const hint = document.querySelector('div')
 
-let hideTimeoutId = null
+// let hideTimeoutId = null
 
-trigger.addEventListener('mouseenter', () => {
-  clearTimeout(hideTimeoutId)
-  hint.hidden = false
-})
+// trigger.addEventListener('mouseenter', () => {
+//   clearTimeout(hideTimeoutId)
+//   hint.hidden = false
+// })
 
-trigger.addEventListener('mouseleave', () => {
-  hideTimeoutId = setTimeout(() => {
-    hint.hidden = true
-  }, 1000)
-})
+// trigger.addEventListener('mouseleave', () => {
+//   hideTimeoutId = setTimeout(() => {
+//     hint.hidden = true
+//   }, 1000)
+// })
 
 // const greeting = delay =>
 //   setTimeout(() => {
@@ -105,3 +105,6 @@ const greeting = delay => {
 counter += 1;
 };
 greeting(100);
+
+
+

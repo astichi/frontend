@@ -5,11 +5,11 @@ const p = document.createElement('p');
 
 document.body.append(input, p);
 
-input.addEventListener('input', () => {
-  setTimeout(() => {
-    p.textContent = input.value;
-  }, 300);
-});
+// input.addEventListener('input', () => {
+//   setTimeout(() => {
+//     p.textContent = input.value;
+//   }, 300);
+// });
 
 // input.addEventListener('change', () => {
 //   setTimeout(() => {
@@ -18,6 +18,12 @@ input.addEventListener('input', () => {
 // });
 
 // input.addEventListener('blur', () => {
+//   setTimeout(() => {
+//     p.textContent = input.value;
+//   }, 300);
+// });
+
+// input.addEventListener('keyup', () => {
 //   setTimeout(() => {
 //     p.textContent = input.value;
 //   }, 300);
