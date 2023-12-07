@@ -126,7 +126,7 @@
 // const end = Date.now();
 // console.log(end - start);
 
-// ****************************************** setTimeout, setInterval
+//  ? ****************************************** setTimeout, setInterval
 
 // const n1 = setTimeout(() => {
 //   console.log('Hello!');
@@ -186,7 +186,7 @@
 // ];
 // const queue = ['tick1', 'tick2', 'tick3'];
 
-// ******************************************   таймер
+// ? ******************************************   таймер
 
 // const timer = deadline => {
 //   const timerBlockHour = document.querySelector('.timer__block-hour');
@@ -244,7 +244,7 @@
 
 // timer('2023/11/15 17:00');
 
-// ******************************************   для перебора больших данных асинхронно
+// ? ******************************************   для перебора больших данных асинхронно
 
 // const tech1 = ['JS', 'React', 'TS'];
 // tech1.forEach(tech => {
@@ -305,4 +305,439 @@
 // });
 
 
-// ******************************************   m6l3
+// ******************************************   m6l5
+
+// fetch('http://localhost:3000/api/goods');
+// fetch('http://localhost:3000/api/goods/1732512010');
+
+// fetch('http://localhost:3000/api/goods', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     title: 'Banana',
+//     description: 'some text',
+//     category: 'fruits',
+//     price: 150,
+//     units: 'kg',
+//     count: 3,
+//   }),
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// });
+// 9852990351
+
+
+// fetch('http://localhost:3000/api/goods/9852990351', {
+//   method: 'DELETE'
+// });
+// fetch('http://localhost:3000/api/goods/9852990351');
+
+// fetch('http://localhost:3000/api/goods', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     title: 'Banana',
+//     description: 'some text',
+//     category: 'fruits',
+//     price: 150,
+//     units: 'kg',
+//     count: 3,
+//   }),
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// });
+
+// fetch('http://localhost:3000/api/goods/5829638087', {
+//   method: 'PATCH',
+//   body: JSON.stringify({
+//     title: 'Banana',
+//     description: 'some text, some text, some text',
+//     price: 200,
+//     count: 8,
+//     discount: 14,
+//   }),
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// });
+
+// fetch('http://localhost:3000/api/goods', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     title: 'Orange',
+//     description: 'some text',
+//     category: 'fruits',
+//     price: 90,
+//     units: 'kg',
+//     count: 7,
+//     discount: 5,
+//   }),
+//   headers: {
+//     'Content-Type': 'application/json',
+//   }
+// });
+
+// fetch('http://localhost:3000/api/goods/discount');
+// fetch('http://localhost:3000/api/goods/category/fruits');
+// fetch('http://localhost:3000/api/categories');
+// fetch('http://localhost:3000/api/total');
+
+// ? ****************************************************** fetch
+
+// const result = fetch('http://localhost:3000/api/goods');
+// console.log(result);
+// const loadGoods = async () => {
+//   const result = await fetch('http://localhost:3000/api/goods');
+//   console.log(result);
+
+//   const data = await result.json();
+//   console.log(data);
+// };
+// loadGoods();
+
+
+// const loadGoods = async (callback) => {
+//   const result = await fetch('http://localhost:3000/api/goods');
+
+
+//   const data = await result.json();
+//   console.log(data);
+
+//   callback(data);
+// };
+
+// const renderGoods = (data) => {
+//   const cardWrapper = document.createElement('div');
+
+//   const goods = data.goods.map(item => {
+//     const card = document.createElement('div');
+//     card.style.border = '1px solid blue';
+//     card.innerHTML = `
+//       <h2>${item.title}</h2>
+//       <br>
+//       <p>Price: ${item.price}</p>
+//       <br>
+//       <p>${item.description}</p>
+//     `;
+
+//     return card;
+//   });
+
+//   cardWrapper.append(...goods);
+//   document.body.append(cardWrapper);
+// };
+
+// loadGoods(renderGoods);
+
+
+
+// const loadGoods = async (callback) => {
+//   const result = await fetch('http://localhost:3000/api/goods');
+
+
+//   const data = await result.json();
+
+//   return data;
+// };
+
+// const renderGoods = async () => {
+//   const data = await loadGoods();
+//   const cardWrapper = document.createElement('div');
+
+//   const goods = data.goods.map(item => {
+//     const card = document.createElement('div');
+//     card.style.border = '1px solid blue';
+//     card.innerHTML = `
+//       <h2>${item.title}</h2>
+//       <br>
+//       <p>Price: ${item.price}</p>
+//       <br>
+//       <p>${item.description}</p>
+//     `;
+
+//     return card;
+//   });
+
+//   cardWrapper.append(...goods);
+//   document.body.append(cardWrapper);
+// };
+
+// renderGoods();
+
+
+// ******************************************   m6l6   XMLHttpRequest
+
+// const loadGoods = (callback) => {
+//   const xhr = new XMLHttpRequest();
+//   console.log(xhr);
+//   xhr.open('GET', 'http://localhost:3000/api/goods');
+
+//   xhr.addEventListener('load', () => {
+//     console.log('load');
+//     const data = JSON.parse(xhr.response);
+//     callback(data);
+//   });
+
+//   xhr.addEventListener('error', () => {
+//     console.log('error');
+//   });
+
+//   xhr.send();
+// };
+
+
+// const renderGoods = (data) => {
+//   const cardWrapper = document.createElement('div');
+
+//   const goods = data.goods.map(item => {
+//     const card = document.createElement('div');
+//     card.style.border = '1px solid blue';
+//     card.innerHTML = `
+//       <h2>${item.title}</h2>
+//       <br>
+//       <p>Price: ${item.price}</p>
+//       <br>
+//       <p>${item.description}</p>
+//     `;
+
+//     return card;
+//   });
+
+//   cardWrapper.append(...goods);
+//   document.body.append(cardWrapper);
+// };
+
+// const getBtn = document.querySelector('.get');
+// getBtn.addEventListener('click', () => {
+//   loadGoods(renderGoods);
+// });
+
+//////////////////////////////////////////////
+
+// const sendData = (body, callback) => {
+//   const xhr = new XMLHttpRequest();
+//   xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts');
+
+//   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+//   xhr.addEventListener('load', () => {
+//     const data = JSON.parse(xhr.response);
+//     callback(data);
+//   });
+
+//   xhr.addEventListener('error', () => {
+//     console.log('error');
+//   });
+
+//   xhr.send(JSON.stringify(body));
+// };
+
+// const form = document.querySelector('#form');
+// form.addEventListener('submit', e => {
+//   e.preventDefault();
+
+//   sendData({
+//     title: form.title.value,
+//     body: form.description.value,
+//   }, (data) => {
+//     form.textContent = `ID: ${data.id}`;
+//   });
+// });
+
+// ? ************************** XMLHttpRequest универсальная ф-я, обработка ошибок
+
+// const URL = 'http://localhost:3000/api/goods';
+
+// const httpRequest = (url, {
+//   method = 'GET',
+//   callback,
+//   body = {},
+//   headers,
+// }) => {
+//   try {
+//     const xhr = new XMLHttpRequest();
+//     xhr.open(method, url);
+  
+//     if (headers) {
+//       for (const [key, value] of Object.entries(headers)) {
+//         xhr.setRequestHeader(key, value);
+//       }
+//     }
+  
+//     xhr.addEventListener('load', () => {
+//       if (xhr.status < 200 || xhr.status >= 300) {
+//         callback(new Error(xhr.status), xhr.response);
+//         return;
+//       }
+
+//       const data = JSON.parse(xhr.response);
+//       if (callback) callback(null, data);
+//     });
+  
+//     xhr.addEventListener('error', () => {
+//       callback(new Error(xhr.status), xhr.response);
+//     });
+  
+//     xhr.send(JSON.stringify(body));
+//   } catch (err) {
+//     callback(new Error(err));
+//   }
+// };
+
+// const renderGoods = (err, data) => {
+//   if (err) {
+//     console.warn(err, data);
+//     const h2 = document.createElement('h2');
+//     h2.style.color = 'red';
+//     h2.textContent = data ? JSON.parse(data).message : err;
+//     document.body.append(h2);
+//     return;
+//   }
+
+//   const cardWrapper = document.createElement('div');
+
+//   const goods = data.goods.map(item => {
+//     const card = document.createElement('div');
+//     card.style.border = '1px solid blue';
+//     card.innerHTML = `
+//       <h2>${item.title}</h2>
+//       <br>
+//       <p>Price: ${item.price}</p>
+//       <br>
+//       <p>${item.description}</p>
+//     `;
+
+//     return card;
+//   });
+
+//   cardWrapper.append(...goods);
+//   document.body.append(cardWrapper);
+// };
+
+// const getBtn = document.querySelector('.get');
+// getBtn.addEventListener('click', () => {
+//   httpRequest(URL, {
+//     method: 'GET',
+//     callback: renderGoods,
+//   });
+// });
+
+// ///////////////////////////////////////////////
+
+// const form = document.querySelector('#form');
+// form.addEventListener('submit', e => {
+//   e.preventDefault();
+
+//   httpRequest('https://jsonplaceholder.typicode.com/posts', {
+//     method: 'POST',
+//     body: {
+//       title: form.title.value,
+//       body: form.description.value,
+//     },
+//     callback(err, data) {
+//       console.warn(err, data);
+//       if (err) {
+//         form.textContent = err;
+//       }
+//       form.textContent = `ID: ${data.id}`;
+//     },
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+// });
+
+
+// ? ************************** fetch универсальная ф-я, обработка ошибок
+
+const URL = 'http://localhost:3000/api/goods';
+
+const fetchRequest = async (url, {
+  method = 'GET',
+  callback,
+  body,
+  headers,
+}) => {
+  try {
+    const options = {
+      method,
+    };
+
+    if (body) options.body = JSON.stringify(body);
+    if (headers) options.headers = headers;
+
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      if (callback) callback(null, data);
+      return;
+    }
+
+    throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+  } catch (err) {
+    callback(err);
+  }
+};
+
+const renderGoods = (err, data) => {
+  if (err) {
+    console.warn(err, data);
+    const h2 = document.createElement('h2');
+    h2.style.color = 'red';
+    h2.textContent = data ? JSON.parse(data).message : err;
+    document.body.append(h2);
+    return;
+  }
+
+  const cardWrapper = document.createElement('div');
+
+  const goods = data.goods.map(item => {
+    const card = document.createElement('div');
+    card.style.border = '1px solid blue';
+    card.innerHTML = `
+      <h2>${item.title}</h2>
+      <br>
+      <p>Price: ${item.price}</p>
+      <br>
+      <p>${item.description}</p>
+    `;
+
+    return card;
+  });
+
+  cardWrapper.append(...goods);
+  document.body.append(cardWrapper);
+};
+
+const getBtn = document.querySelector('.get');
+getBtn.addEventListener('click', () => {
+  fetchRequest(URL, {
+    method: 'GET',
+    callback: renderGoods,
+  });
+});
+
+///////////////////////////////////////////////
+
+const form = document.querySelector('#form');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  fetchRequest('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    body: {
+      title: form.title.value,
+      body: form.description.value,
+    },
+    callback(err, data) {
+      console.warn(err, data);
+      if (err) {
+        form.textContent = err;
+      }
+      form.textContent = `ID: ${data.id}`;
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+});
