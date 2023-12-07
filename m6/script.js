@@ -649,7 +649,7 @@
 
 // ? ************************** fetch универсальная ф-я, обработка ошибок
 
-const URL = 'http://localhost:3000/api/goods';
+const URL = 'http://localhost:3000/api/goods/123';
 
 const fetchRequest = async (url, {
   method = 'GET',
@@ -673,20 +673,35 @@ const fetchRequest = async (url, {
       return;
     }
 
-    throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+    const data = await response.json();
+    // console.log(data.message);
+    // throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+    // throw new Error(data.message ? data.message : `Ошибка ${response.status}: ${response.statusText}`);
+    throw new Error(data.message ? data.message : undefined);
   } catch (err) {
+    console.log(err.message);
     callback(err);
   }
 };
 
 const renderGoods = (err, data) => {
   if (err) {
-    console.warn(err, data);
-    const h2 = document.createElement('h2');
-    h2.style.color = 'red';
-    h2.textContent = data ? JSON.parse(data).message : err;
-    document.body.append(h2);
-    return;
+    console.log(err.status);
+    if (err.message) {
+      console.warn(err, data);
+      const h2 = document.createElement('h2');
+      h2.style.color = 'red';
+      h2.textContent = err;
+      document.body.append(h2);
+      return;
+    } else if (!err.message) {
+      console.warn(err, data);
+      const h2 = document.createElement('h2');
+      h2.style.color = 'red';
+      h2.textContent = 'err';
+      document.body.append(h2);
+      return;
+    }
   }
 
   const cardWrapper = document.createElement('div');
@@ -741,3 +756,4 @@ form.addEventListener('submit', e => {
     },
   });
 });
+
