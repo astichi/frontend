@@ -649,7 +649,129 @@
 
 // ? ************************** fetch универсальная ф-я, обработка ошибок
 
-const URL = 'http://localhost:3000/api/goods/123';
+// const URL = 'http://localhost:3000/api/goods/123';
+// const URL = 'http://principled-iced-confidence.glitch.me/';
+
+// const fetchRequest = async (url, {
+//   method = 'GET',
+//   callback,
+//   body,
+//   headers,
+// }) => {
+//   try {
+//     const options = {
+//       method,
+//     };
+
+//     if (body) options.body = JSON.stringify(body);
+//     if (headers) options.headers = headers;
+
+//     const response = await fetch(url, options);
+
+//     if (response.ok) {
+//       const data = await response.json();
+//       if (callback) callback(null, data);
+//       return;
+//     }
+
+//     const data = await response.json();
+//     console.log(data.message);
+//     // throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+//     // throw new Error(data.message ? data.message : `Ошибка ${response.status}: ${response.statusText}`);
+//     throw new Error(data.message ? data.message : '');
+//   } catch (err) {
+//     console.log(err.message);
+//     console.log(err.name);
+//     callback(err);
+//   }
+// };
+
+// const renderGoods = (err, data) => {
+//   if (err) {
+//     if (err.name !== 'Error') {
+//       console.warn(err, data);
+//       const h2 = document.createElement('h2');
+//       h2.style.color = 'red';
+//       h2.textContent = 'something wrong';
+//       document.body.append(h2);
+//       return;
+//     }
+//     if (err.message) {
+//       console.warn(err, data);
+//       const h2 = document.createElement('h2');
+//       h2.style.color = 'red';
+//       h2.textContent = err.message;
+//       document.body.append(h2);
+//       return;
+//     } else if (!err.message) {
+//       console.warn(err, data);
+//       const h2 = document.createElement('h2');
+//       h2.style.color = 'red';
+//       h2.textContent = 'something wrong';
+//       document.body.append(h2);
+//       return;
+//     }
+//   }
+
+//   const cardWrapper = document.createElement('div');
+
+//   const goods = data.goods.map(item => {
+//     const card = document.createElement('div');
+//     card.style.border = '1px solid blue';
+//     card.innerHTML = `
+//       <h2>${item.title}</h2>
+//       <br>
+//       <p>Price: ${item.price}</p>
+//       <br>
+//       <p>${item.description}</p>
+//     `;
+
+//     return card;
+//   });
+
+//   cardWrapper.append(...goods);
+//   document.body.append(cardWrapper);
+// };
+
+// const getBtn = document.querySelector('.get');
+// getBtn.addEventListener('click', () => {
+//   fetchRequest(`${URL}api/goods`, {
+//     method: 'GET',
+//     callback: renderGoods,
+//   });
+// });
+
+// ///////////////////////////////////////////////
+
+// const form = document.querySelector('#form');
+// form.addEventListener('submit', e => {
+//   e.preventDefault();
+
+//   fetchRequest('https://jsonplaceholder.typicode.com/posts', {
+//     method: 'POST',
+//     body: {
+//       title: form.title.value,
+//       body: form.description.value,
+//     },
+//     callback(err, data) {
+//       console.warn(err, data);
+//       if (err) {
+//         form.textContent = err;
+//       }
+//       form.textContent = `ID: ${data.id}`;
+//     },
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+// });
+
+
+// ******************************************   m6l7  fetch возврат значения, preload
+
+import showModal from './modal.js';
+
+const URL = 'http://principled-iced-confidence.glitch.me/api/goods';
 
 const fetchRequest = async (url, {
   method = 'GET',
@@ -669,36 +791,38 @@ const fetchRequest = async (url, {
 
     if (response.ok) {
       const data = await response.json();
-      if (callback) callback(null, data);
+      if (callback) return callback(null, data);
       return;
     }
 
-    const data = await response.json();
-    // console.log(data.message);
-    // throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
-    // throw new Error(data.message ? data.message : `Ошибка ${response.status}: ${response.statusText}`);
-    throw new Error(data.message ? data.message : undefined);
+    throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
   } catch (err) {
-    console.log(err.message);
-    callback(err);
+    return callback(err);
   }
 };
 
 const renderGoods = (err, data) => {
   if (err) {
-    console.log(err.status);
+    if (err.name !== 'Error') {
+      console.warn(err, data);
+      const h2 = document.createElement('h2');
+      h2.style.color = 'red';
+      h2.textContent = 'something wrong';
+      document.body.append(h2);
+      return;
+    }
     if (err.message) {
       console.warn(err, data);
       const h2 = document.createElement('h2');
       h2.style.color = 'red';
-      h2.textContent = err;
+      h2.textContent = err.message;
       document.body.append(h2);
       return;
     } else if (!err.message) {
       console.warn(err, data);
       const h2 = document.createElement('h2');
       h2.style.color = 'red';
-      h2.textContent = 'err';
+      h2.textContent = 'something wrong';
       document.body.append(h2);
       return;
     }
@@ -715,45 +839,36 @@ const renderGoods = (err, data) => {
       <p>Price: ${item.price}</p>
       <br>
       <p>${item.description}</p>
+      <button type="button" class="details" data-id="${item.id}">Details</button>
     `;
 
     return card;
   });
 
   cardWrapper.append(...goods);
+  cardWrapper.addEventListener('click', ({target}) => {
+    if (target.classList.contains('details')) {
+      fetchRequest(`${URL}/${target.dataset.id}`, {
+        callback: showModal,
+      });
+    }
+  });
+
   document.body.append(cardWrapper);
+  // getBtn.classList.remove('get-active');
+  return true;
 };
 
 const getBtn = document.querySelector('.get');
-getBtn.addEventListener('click', () => {
-  fetchRequest(URL, {
+getBtn.addEventListener('click', async () => {
+  getBtn.classList.add('get-active');
+  const result = await fetchRequest(`${URL}`, {
     method: 'GET',
     callback: renderGoods,
   });
+
+  if (result) {
+    getBtn.classList.remove('get-active');
+  }
+  console.log(result);
 });
-
-///////////////////////////////////////////////
-
-const form = document.querySelector('#form');
-form.addEventListener('submit', e => {
-  e.preventDefault();
-
-  fetchRequest('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    body: {
-      title: form.title.value,
-      body: form.description.value,
-    },
-    callback(err, data) {
-      console.warn(err, data);
-      if (err) {
-        form.textContent = err;
-      }
-      form.textContent = `ID: ${data.id}`;
-    },
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-});
-
