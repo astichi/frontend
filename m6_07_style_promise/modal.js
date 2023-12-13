@@ -30,7 +30,7 @@ const showModal = async (err, data) => {
 
   // можно возвращать id, количество товара
   // подтвердить действия пользователя, стилизованный confirm
-  return new Promise (resolve => {
+  return new Promise(resolve => {
     close.addEventListener('click', () => {
       overlay.remove();
       resolve(false);
